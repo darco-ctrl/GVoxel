@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcvktgtmx3xpg"]
+[gd_scene load_steps=11 format=3 uid="uid://dcvktgtmx3xpg"]
 
 [ext_resource type="Script" uid="uid://e4cnw5rr2org" path="res://Game/Entities/Player/player.gd" id="1_lpyhk"]
-[ext_resource type="PackedScene" uid="uid://c647gbaojpdag" path="res://Game/Items/Tools/Pickaxe/pickaxe.tscn" id="2_25h4n"]
+[ext_resource type="Script" uid="uid://cee717nos5dcq" path="res://Game/Entities/Player/misc.gd" id="2_q62hb"]
+[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://Assets/userinterface/hotbar.png" id="3_q62hb"]
+[ext_resource type="Script" uid="uid://bf5v8qvot3u14" path="res://UserInterface/PlayerUI/player_inventory.gd" id="4_yptuu"]
+[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://Assets/userinterface/hotbarselection.png" id="5_87dig"]
+[ext_resource type="Texture2D" uid="uid://nytplf6xps4d" path="res://Assets/blocks/dirt.png" id="6_uai14"]
+[ext_resource type="Texture2D" uid="uid://dbbc3mc4gk8ss" path="res://Assets/blocks/grass_top.png" id="7_yj5xo"]
+[ext_resource type="Texture2D" uid="uid://c4kptoyngvanj" path="res://Assets/blocks/stone.png" id="8_ev5uv"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lpyhk"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_25h4n"]
+size = Vector3(0.5, 1.7, 0.5)
 
 [sub_resource type="GDScript" id="GDScript_1du5w"]
 script/source = "extends Node3D
@@ -19,15 +26,20 @@ func _process(delta: float) -> void:
 	pass
 "
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera", "interaction_ray")]
 script = ExtResource("1_lpyhk")
 headpivot = NodePath("Head")
 camera = NodePath("Head/Camera3D")
+interaction_ray = NodePath("Head/Camera3D/InteractionRay")
 camera_sensitvity = 0.003
-jump_velocity = 6.0
+
+[node name="InteractionAndAttack" type="Node3D" parent="." node_paths=PackedStringArray("interaction_ray")]
+script = ExtResource("2_q62hb")
+interaction_ray = NodePath("../Head/Camera3D/InteractionRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_lpyhk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+shape = SubResource("BoxShape3D_25h4n")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -44,5 +56,69 @@ script = SubResource("GDScript_1du5w")
 
 [node name="Hands" type="Node3D" parent="Body"]
 
-[node name="Pickaxe" parent="Body/Hands" node_paths=PackedStringArray("interaction_ray") instance=ExtResource("2_25h4n")]
-interaction_ray = NodePath("../../../Head/Camera3D/InteractionRay")
+[node name="PlayerGUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="TextureRect" parent="PlayerGUI" node_paths=PackedStringArray("selection_box")]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -274.0
+offset_top = -72.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("3_q62hb")
+script = ExtResource("4_yptuu")
+selection_box = NodePath("SelectionBar")
+
+[node name="SelectionBar" type="TextureRect" parent="PlayerGUI/Inventory"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00364964
+anchor_top = 0.0277778
+anchor_right = 0.127737
+anchor_bottom = 0.972222
+texture = ExtResource("5_87dig")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="dirt" type="TextureRect" parent="PlayerGUI/Inventory"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.5
+offset_right = 23.0
+offset_bottom = 22.5
+texture = ExtResource("6_uai14")
+expand_mode = 1
+
+[node name="grass" type="TextureRect" parent="PlayerGUI/Inventory"]
+layout_mode = 0
+offset_left = 46.5
+offset_top = 12.5
+offset_right = 56.5
+offset_bottom = 22.5
+texture = ExtResource("7_yj5xo")
+expand_mode = 1
+
+[node name="stone" type="TextureRect" parent="PlayerGUI/Inventory"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 12.5
+offset_right = 91.0
+offset_bottom = 22.5
+texture = ExtResource("8_ev5uv")
+expand_mode = 1

@@ -1,7 +1,6 @@
 extends Node
 
-const CHANNEL = VoxelBuffer.CHANNEL_TYPE
-
 const AIR: int = 0
-const STONE: int = 1
-const GRASS: int = 2
+const GRASS: int = 1
+const DIRT: int = 2
+const STONE: int = 3

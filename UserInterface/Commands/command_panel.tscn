@@ -15,6 +15,12 @@ fps_display = NodePath("FPSDisplay")
 
 [node name="FPSDisplay" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
+offset_top = 23.0
+offset_right = 56.0
+offset_bottom = 46.0
+text = "> 000 fps"
+
+[node name="GraphicsCard" type="Label" parent="."]
+offset_right = 198.0
 offset_bottom = 23.0
-text = "000 fps"
+text = "> NVIDIA GeForce GTX 1050"

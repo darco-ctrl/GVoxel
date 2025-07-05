@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @export var headpivot: Node3D
 @export var camera: Camera3D
+@export var interaction_ray: RayCast3D
 
 @export_range(0, 1, 0.001) var camera_sensitvity: float = 0.005
 
@@ -30,6 +31,7 @@ func inputs_handler() -> void:
 		else:
 			lock_mouse = true
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 
 func player_movement(deltatime: float) -> void:
 	var direction: Vector3 = Vector3.ZERO

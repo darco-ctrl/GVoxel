@@ -6,7 +6,7 @@ var voxel_terrain: VoxelTerrain
 var voxel_tool: VoxelTool
 
 var current_targeted_block: Vector3i
-
+var current_target_block_normal: Vector3
 
 func _ready() -> void:
 	outline_cube = create_outline_cube()
@@ -29,9 +29,7 @@ func create_outline_cube() -> MeshInstance3D:
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(1, 1, 1, 0.1)  # bright red
-	mat.emission_enabled = true
-	mat.emission = Color(1, 0, 0)
+	mat.albedo_color = Color(1, 1, 1, 0.1)
 	cube.material_override = mat
 	cube.scale = Vector3(1, 1, 1)
 	
@@ -44,21 +42,31 @@ func create_outline_cube() -> MeshInstance3D:
 func check_inputs() -> void:
 	if Input.is_action_just_pressed("attack"):
 		var current_voxel_type = voxel_tool.get_voxel(current_targeted_block)
-		
 		if current_voxel_type != TerrainData.AIR:
 			voxel_tool.set_voxel(current_targeted_block, TerrainData.AIR)
 	
+	if Input.is_action_just_pressed("interact"):
+		var tool = voxel_terrain.get_voxel_tool()
 
+		# Optional: set channel and mode
+		tool.set_channel(VoxelBuffer.CHANNEL_TYPE)
+
+		var place_pos = current_targeted_block + Vector3i(current_target_block_normal)
+
+		var block_type = tool.get_voxel(place_pos)
+		
+		if block_type == TerrainData.AIR:
+			tool.set_voxel(place_pos, TerrainData.GRASS)
+		
 func update_outline() -> void:
 	if interaction_ray.is_colliding():
 		var hit_position = interaction_ray.get_collision_point()
-		var hit_normal = interaction_ray.get_collision_normal()
-		var block_position = (hit_position - hit_normal * 0.5).floor()
+		current_target_block_normal = interaction_ray.get_collision_normal()
+		var block_position = (hit_position - current_target_block_normal * 0.5).floor()
 		current_targeted_block = Vector3i(block_position)
 
 		outline_cube.global_position = block_position + Vector3(0.5, 0.5, 0.5)
 		outline_cube.visible = true
 	else:
 		outline_cube.visible = false
-		
 		

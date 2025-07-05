@@ -1,27 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsxuaba25w2lc"]
+[gd_scene load_steps=4 format=3 uid="uid://dsxuaba25w2lc"]
 
 [ext_resource type="VoxelGeneratorScript" uid="uid://cjj42mbfqlaq0" path="res://Game/Dimensions/Overworld/overworld_voxel_generator_script.tres" id="1_lwaw4"]
-
-[sub_resource type="VoxelBlockyModelEmpty" id="VoxelBlockyModelEmpty_lwaw4"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yh6uv"]
-albedo_color = Color(0, 0.812664, 0.00172, 1)
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_lwaw4"]
-material_override_0 = SubResource("StandardMaterial3D_yh6uv")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwaw4"]
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.423864, 0.168153, 0.190639, 1)
-
-[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_yh6uv"]
-material_override_0 = SubResource("StandardMaterial3D_lwaw4")
-
-[sub_resource type="VoxelBlockyLibrary" id="VoxelBlockyLibrary_5dqrl"]
-models = Array[VoxelBlockyModel]([SubResource("VoxelBlockyModelEmpty_lwaw4"), SubResource("VoxelBlockyModelCube_lwaw4"), SubResource("VoxelBlockyModelCube_yh6uv")])
+[ext_resource type="VoxelBlockyLibrary" uid="uid://bcabjaynfc14t" path="res://Game/Dimensions/Overworld/voxel_blocky_lib.tres" id="2_yh6uv"]
 
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_s0xdd"]
-library = SubResource("VoxelBlockyLibrary_5dqrl")
+library = ExtResource("2_yh6uv")
 
 [node name="VoxelTerrain" type="VoxelTerrain"]
 generator = ExtResource("1_lwaw4")
