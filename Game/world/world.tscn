@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7yw7w32ijc4f"]
+
+[ext_resource type="Script" uid="uid://dbf5gh84bhkrf" path="res://Game/world/world.gd" id="1_1cgcw"]
+[ext_resource type="PackedScene" uid="uid://dcvktgtmx3xpg" path="res://Game/Entities/Player/player.tscn" id="2_fic7y"]
+[ext_resource type="PackedScene" uid="uid://g0gr53yrkhq7" path="res://Game/Environment/environment.tscn" id="3_7tn25"]
+[ext_resource type="PackedScene" uid="uid://dsxuaba25w2lc" path="res://Game/Dimensions/Overworld/terrain.tscn" id="4_vpqgw"]
+[ext_resource type="PackedScene" uid="uid://b3oc56wkhdi7r" path="res://UserInterface/Commands/command_panel.tscn" id="5_2iidk"]
+[ext_resource type="Script" uid="uid://imttns1x0gpx" path="res://Game/Dimensions/Overworld/new_gd_script.gd" id="5_fic7y"]
+
+[sub_resource type="VoxelGeneratorScript" id="VoxelGeneratorScript_7tn25"]
+resource_local_to_scene = true
+script = ExtResource("5_fic7y")
+
+[node name="World" type="Node3D" node_paths=PackedStringArray("voxel_terrain", "dimensions")]
+script = ExtResource("1_1cgcw")
+voxel_terrain = NodePath("Dimensions/terrain")
+dimensions = NodePath("Dimensions")
+
+[node name="Player" parent="." instance=ExtResource("2_fic7y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+
+[node name="Environment" parent="." instance=ExtResource("3_7tn25")]
+
+[node name="Dimensions" type="Node3D" parent="."]
+
+[node name="terrain" parent="Dimensions" instance=ExtResource("4_vpqgw")]
+generator = SubResource("VoxelGeneratorScript_7tn25")
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="CommandPanel" parent="UserInterface" instance=ExtResource("5_2iidk")]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7yw7w32ijc4f"]
+
+[ext_resource type="PackedScene" uid="uid://d2gd71nkx7umd" path="res://Tests/FlyingCamera/flying_camera.tscn" id="1_ebafo"]
+[ext_resource type="PackedScene" uid="uid://g0gr53yrkhq7" path="res://Game/Environment/environment.tscn" id="2_3kekb"]
+[ext_resource type="PackedScene" uid="uid://dsxuaba25w2lc" path="res://Game/Dimensions/terrain.tscn" id="3_jwkme"]
+[ext_resource type="PackedScene" uid="uid://b3oc56wkhdi7r" path="res://UserInterface/Commands/command_panel.tscn" id="4_ps1nv"]
+
+[node name="World" type="Node3D"]
+
+[node name="Environment" parent="." instance=ExtResource("2_3kekb")]
+
+[node name="FlyingCamera" parent="." instance=ExtResource("1_ebafo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8868, 56.0749, 3.02979)
+
+[node name="Dimensions" type="Node3D" parent="."]
+
+[node name="terrain" parent="Dimensions" instance=ExtResource("3_jwkme")]
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="CommandPanel" parent="UserInterface" instance=ExtResource("4_ps1nv")]

@@ -12,3 +12,5 @@ camera_pivot = NodePath("Pivot")
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 current = true
 fov = 76.2229
+
+[node name="VoxelViewer" type="VoxelViewer" parent="Pivot/Camera3D"]

@@ -19,7 +19,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 func _physics_process(delta: float) -> void: 
 	plaeyr_movement(delta);
+	inputs()
 	
+func inputs() -> void:
+	if Input.is_action_just_released("mouse_wheel_up"):
+		speed += 10
+	elif Input.is_action_just_released("mouse_wheel_down"):
+		speed -= 10
+	speed = clamp(speed, 30, 300)
+
 func plaeyr_movement(deltatime: float) -> void:
 	if Input.is_action_just_pressed("lock_mouse"):
 		if lock_mouse:

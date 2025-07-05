@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c647gbaojpdag"]
+
+[ext_resource type="Script" uid="uid://du6m8ps1vrt4o" path="res://Game/Items/Tools/Pickaxe/pickaxe.gd" id="1_0a23t"]
+
+[node name="Pickaxe" type="Node3D"]
+script = ExtResource("1_0a23t")

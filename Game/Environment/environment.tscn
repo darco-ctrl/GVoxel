@@ -16,3 +16,6 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1mtb2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.832912, 0.31106, -0.457711, 0, 0.827081, 0.562083, 0.553406, -0.468166, 0.688885, 0, 0, 0)

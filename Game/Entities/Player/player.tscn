@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcvktgtmx3xpg"]
+
+[ext_resource type="Script" uid="uid://e4cnw5rr2org" path="res://Game/Entities/Player/player.gd" id="1_lpyhk"]
+[ext_resource type="PackedScene" uid="uid://c647gbaojpdag" path="res://Game/Items/Tools/Pickaxe/pickaxe.tscn" id="2_25h4n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lpyhk"]
+
+[sub_resource type="GDScript" id="GDScript_1du5w"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera")]
+script = ExtResource("1_lpyhk")
+headpivot = NodePath("Head")
+camera = NodePath("Head/Camera3D")
+camera_sensitvity = 0.003
+jump_velocity = 6.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_lpyhk")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="VoxelViewer" type="VoxelViewer" parent="Head/Camera3D"]
+
+[node name="InteractionRay" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -4)
+
+[node name="Body" type="Node3D" parent="."]
+script = SubResource("GDScript_1du5w")
+
+[node name="Hands" type="Node3D" parent="Body"]
+
+[node name="Pickaxe" parent="Body/Hands" node_paths=PackedStringArray("interaction_ray") instance=ExtResource("2_25h4n")]
+interaction_ray = NodePath("../../../Head/Camera3D/InteractionRay")
