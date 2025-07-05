@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7yw7w32ijc4f"]
+
+[ext_resource type="PackedScene" uid="uid://d2gd71nkx7umd" path="res://Tests/FlyingCamera/flying_camera.tscn" id="1_ebafo"]
+[ext_resource type="PackedScene" uid="uid://g0gr53yrkhq7" path="res://Game/Environment/environment.tscn" id="2_3kekb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj8i0"]
+
+[node name="World" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_aj8i0")
+
+[node name="Environment" parent="." instance=ExtResource("2_3kekb")]
+
+[node name="FlyingCamera" parent="." instance=ExtResource("1_ebafo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8868, 6.65206, 3.02979)

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2gd71nkx7umd"]
+
+[ext_resource type="Script" uid="uid://ngj8u5hmr8g" path="res://Tests/FlyingCamera/flying_camera.gd" id="1_cqoqd"]
+
+[node name="FlyingCamera" type="Node3D" node_paths=PackedStringArray("camera", "camera_pivot")]
+script = ExtResource("1_cqoqd")
+camera = NodePath("Pivot/Camera3D")
+camera_pivot = NodePath("Pivot")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+current = true
+fov = 76.2229
