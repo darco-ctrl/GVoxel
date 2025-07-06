@@ -1,6 +1,9 @@
 extends Node3D
 
 @export var interaction_ray: RayCast3D
+@export var inventory: TextureRect
+@export var player: CharacterBody3D
+
 var outline_cube: MeshInstance3D
 var voxel_terrain: VoxelTerrain
 var voxel_tool: VoxelTool
@@ -8,13 +11,16 @@ var voxel_tool: VoxelTool
 var current_targeted_block: Vector3i
 var current_target_block_normal: Vector3
 
+var selected_item: Object
+
 func _ready() -> void:
 	outline_cube = create_outline_cube()
 	if Data.world.voxel_terrain: voxel_terrain = Data.world.voxel_terrain
 	voxel_tool = voxel_terrain.get_voxel_tool()
 
 func _process(delta: float) -> void:
-	check_inputs()
+	block_deystroy()
+	block_placement()
 	update_outline()
 
 func create_outline_cube() -> MeshInstance3D:
@@ -39,12 +45,13 @@ func create_outline_cube() -> MeshInstance3D:
 	
 	return cube
 
-func check_inputs() -> void:
+func block_placement():
 	if Input.is_action_just_pressed("attack"):
 		var current_voxel_type = voxel_tool.get_voxel(current_targeted_block)
 		if current_voxel_type != TerrainData.AIR:
 			voxel_tool.set_voxel(current_targeted_block, TerrainData.AIR)
-	
+
+func block_deystroy():
 	if Input.is_action_just_pressed("interact"):
 		var tool = voxel_terrain.get_voxel_tool()
 
@@ -55,7 +62,7 @@ func check_inputs() -> void:
 
 		var block_type = tool.get_voxel(place_pos)
 		
-		if block_type == TerrainData.AIR:
+		if block_type == TerrainData.AIR && place_pos.distance_to(player.global_position) > 1.2:
 			tool.set_voxel(place_pos, TerrainData.GRASS)
 		
 func update_outline() -> void:

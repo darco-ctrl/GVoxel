@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://e4cnw5rr2org" path="res://Game/Entities/Player/player.gd" id="1_lpyhk"]
 [ext_resource type="Script" uid="uid://cee717nos5dcq" path="res://Game/Entities/Player/misc.gd" id="2_q62hb"]
-[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://Assets/userinterface/hotbar.png" id="3_q62hb"]
+[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://Assets/userinterface/hotbar/hotbar.png" id="3_q62hb"]
 [ext_resource type="Script" uid="uid://bf5v8qvot3u14" path="res://UserInterface/PlayerUI/player_inventory.gd" id="4_yptuu"]
-[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://Assets/userinterface/hotbarselection.png" id="5_87dig"]
+[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://Assets/userinterface/hotbar/hotbarselection.png" id="5_87dig"]
 [ext_resource type="Texture2D" uid="uid://nytplf6xps4d" path="res://Assets/blocks/dirt.png" id="6_uai14"]
 [ext_resource type="Texture2D" uid="uid://dbbc3mc4gk8ss" path="res://Assets/blocks/grass_top.png" id="7_yj5xo"]
 [ext_resource type="Texture2D" uid="uid://c4kptoyngvanj" path="res://Assets/blocks/stone.png" id="8_ev5uv"]
@@ -33,9 +33,11 @@ camera = NodePath("Head/Camera3D")
 interaction_ray = NodePath("Head/Camera3D/InteractionRay")
 camera_sensitvity = 0.003
 
-[node name="InteractionAndAttack" type="Node3D" parent="." node_paths=PackedStringArray("interaction_ray")]
+[node name="InteractionAndAttack" type="Node3D" parent="." node_paths=PackedStringArray("interaction_ray", "inventory", "player")]
 script = ExtResource("2_q62hb")
 interaction_ray = NodePath("../Head/Camera3D/InteractionRay")
+inventory = NodePath("../PlayerGUI/Inventory")
+player = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
