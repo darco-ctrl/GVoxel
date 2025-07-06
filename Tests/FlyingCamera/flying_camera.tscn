@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2gd71nkx7umd"]
 
-[ext_resource type="Script" uid="uid://ngj8u5hmr8g" path="res://Tests/FlyingCamera/flying_camera.gd" id="1_cqoqd"]
+[ext_resource type="Script" uid="uid://ngj8u5hmr8g" path="res://tests/FlyingCamera/flying_camera.gd" id="1_cqoqd"]
 
 [node name="FlyingCamera" type="Node3D" node_paths=PackedStringArray("camera", "camera_pivot")]
 script = ExtResource("1_cqoqd")

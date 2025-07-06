@@ -1,8 +1,11 @@
 extends Node3D
 
 @export var interaction_ray: RayCast3D
-@export var inventory: TextureRect
 @export var player: CharacterBody3D
+
+@export var player_inventory: PlayerInventory
+
+@export var coord_label: Label
 
 var outline_cube: MeshInstance3D
 var voxel_terrain: VoxelTerrain
@@ -10,8 +13,6 @@ var voxel_tool: VoxelTool
 
 var current_targeted_block: Vector3i
 var current_target_block_normal: Vector3
-
-var selected_item: Object
 
 func _ready() -> void:
 	outline_cube = create_outline_cube()
@@ -22,6 +23,8 @@ func _process(delta: float) -> void:
 	block_deystroy()
 	block_placement()
 	update_outline()
+	
+	coord_label.text = str(player.position)
 
 func create_outline_cube() -> MeshInstance3D:
 	var cube = MeshInstance3D.new()
@@ -45,14 +48,19 @@ func create_outline_cube() -> MeshInstance3D:
 	
 	return cube
 
-func block_placement():
+func block_deystroy():
 	if Input.is_action_just_pressed("attack"):
 		var current_voxel_type = voxel_tool.get_voxel(current_targeted_block)
 		if current_voxel_type != TerrainData.AIR:
 			voxel_tool.set_voxel(current_targeted_block, TerrainData.AIR)
 
-func block_deystroy():
-	if Input.is_action_just_pressed("interact"):
+func block_placement():
+	if Input.is_action_just_pressed("interact") && player_inventory.selected_item != null:
+		var item: Item = player_inventory.selected_item
+		
+		if !item.can_be_placed: return
+		
+		var place_block_type = item.block_model
 		var tool = voxel_terrain.get_voxel_tool()
 
 		# Optional: set channel and mode
@@ -62,8 +70,8 @@ func block_deystroy():
 
 		var block_type = tool.get_voxel(place_pos)
 		
-		if block_type == TerrainData.AIR && place_pos.distance_to(player.global_position) > 1.2:
-			tool.set_voxel(place_pos, TerrainData.GRASS)
+		if block_type == TerrainData.AIR:
+			tool.set_voxel(place_pos, place_block_type)
 		
 func update_outline() -> void:
 	if interaction_ray.is_colliding():
@@ -76,4 +84,5 @@ func update_outline() -> void:
 		outline_cube.visible = true
 	else:
 		outline_cube.visible = false
+		
 		

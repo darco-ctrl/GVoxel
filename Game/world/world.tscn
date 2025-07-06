@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://c7yw7w32ijc4f"]
 
-[ext_resource type="Script" uid="uid://dbf5gh84bhkrf" path="res://Game/world/world.gd" id="1_1cgcw"]
-[ext_resource type="PackedScene" uid="uid://dcvktgtmx3xpg" path="res://Game/Entities/Player/player.tscn" id="2_fic7y"]
-[ext_resource type="PackedScene" uid="uid://g0gr53yrkhq7" path="res://Game/Environment/environment.tscn" id="3_7tn25"]
-[ext_resource type="PackedScene" uid="uid://dsxuaba25w2lc" path="res://Game/Dimensions/Overworld/terrain.tscn" id="4_vpqgw"]
-[ext_resource type="PackedScene" uid="uid://b3oc56wkhdi7r" path="res://UserInterface/Commands/command_panel.tscn" id="5_2iidk"]
-[ext_resource type="Script" uid="uid://imttns1x0gpx" path="res://Game/Dimensions/Overworld/overworld_terrain_generator.gd" id="5_fic7y"]
+[ext_resource type="Script" uid="uid://dbf5gh84bhkrf" path="res://game/world/world.gd" id="1_1cgcw"]
+[ext_resource type="PackedScene" uid="uid://dcvktgtmx3xpg" path="res://game/entities/player/player.tscn" id="2_fic7y"]
+[ext_resource type="PackedScene" uid="uid://g0gr53yrkhq7" path="res://game/environment/environment.tscn" id="3_7tn25"]
+[ext_resource type="PackedScene" uid="uid://dsxuaba25w2lc" path="res://game/dimensions/overworld/terrain.tscn" id="4_vpqgw"]
+[ext_resource type="PackedScene" uid="uid://b3oc56wkhdi7r" path="res://ui/Commands/command_panel.tscn" id="5_2iidk"]
+[ext_resource type="Script" uid="uid://imttns1x0gpx" path="res://game/dimensions/overworld/overworld_terrain_generator.gd" id="5_fic7y"]
 
 [sub_resource type="VoxelGeneratorScript" id="VoxelGeneratorScript_7tn25"]
 resource_local_to_scene = true

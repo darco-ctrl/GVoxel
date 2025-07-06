@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dpoohu7eic13p"]
+
+[ext_resource type="Texture2D" uid="uid://dbbc3mc4gk8ss" path="res://assets/textures/blocks/grass_top.png" id="1_v51xl"]
+[ext_resource type="Script" uid="uid://do2wxrkfgeh78" path="res://data/resources/items.gd" id="2_jngd0"]
+
+[resource]
+script = ExtResource("2_jngd0")
+name = "grass"
+icon_texture = ExtResource("1_v51xl")
+item_type = "block"
+can_be_mined = true
+can_be_placed = true
+can_be_consumed = false
+stack_size = 16
+block_model = 1
+metadata/_custom_type_script = "uid://do2wxrkfgeh78"

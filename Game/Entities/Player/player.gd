@@ -41,7 +41,7 @@ func player_movement(deltatime: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * deltatime
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_pressed("jump") && is_on_floor():
 		velocity.y = jump_velocity
 	
 	if Input.is_action_pressed("move_forward"): direction.z -= 1

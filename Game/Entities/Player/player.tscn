@@ -1,30 +1,23 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcvktgtmx3xpg"]
+[gd_scene load_steps=13 format=3 uid="uid://dcvktgtmx3xpg"]
 
-[ext_resource type="Script" uid="uid://e4cnw5rr2org" path="res://Game/Entities/Player/player.gd" id="1_lpyhk"]
-[ext_resource type="Script" uid="uid://cee717nos5dcq" path="res://Game/Entities/Player/misc.gd" id="2_q62hb"]
-[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://Assets/userinterface/hotbar/hotbar.png" id="3_q62hb"]
-[ext_resource type="Script" uid="uid://bf5v8qvot3u14" path="res://UserInterface/PlayerUI/player_inventory.gd" id="4_yptuu"]
-[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://Assets/userinterface/hotbar/hotbarselection.png" id="5_87dig"]
-[ext_resource type="Texture2D" uid="uid://nytplf6xps4d" path="res://Assets/blocks/dirt.png" id="6_uai14"]
-[ext_resource type="Texture2D" uid="uid://dbbc3mc4gk8ss" path="res://Assets/blocks/grass_top.png" id="7_yj5xo"]
-[ext_resource type="Texture2D" uid="uid://c4kptoyngvanj" path="res://Assets/blocks/stone.png" id="8_ev5uv"]
+[ext_resource type="Script" uid="uid://e4cnw5rr2org" path="res://game/entities/player/player.gd" id="1_lpyhk"]
+[ext_resource type="Script" uid="uid://cee717nos5dcq" path="res://game/entities/player/block_break_n_placement.gd" id="2_q62hb"]
+[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://assets/userinterface/hotbar/hotbar.png" id="3_q62hb"]
+[ext_resource type="Script" uid="uid://do2wxrkfgeh78" path="res://data/resources/items.gd" id="4_igs2l"]
+[ext_resource type="Script" uid="uid://bgmge26qaskbd" path="res://game/entities/player/inventory.gd" id="4_kn1iv"]
+[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://assets/userinterface/hotbar/hotbarselection.png" id="5_87dig"]
+[ext_resource type="Resource" uid="uid://2848of2b0o3b" path="res://data/items/dirt.tres" id="5_p5qu6"]
+[ext_resource type="Resource" uid="uid://dpoohu7eic13p" path="res://data/items/grass.tres" id="6_heu0c"]
+[ext_resource type="Resource" uid="uid://doox1kbfhmlmc" path="res://data/items/stone.tres" id="7_t56eh"]
+[ext_resource type="Script" uid="uid://bblvgy8oplpin" path="res://data/resources/inventory.gd" id="8_6pmmc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_25h4n"]
 size = Vector3(0.5, 1.7, 0.5)
 
-[sub_resource type="GDScript" id="GDScript_1du5w"]
-script/source = "extends Node3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
+[sub_resource type="Resource" id="Resource_0rdsw"]
+script = ExtResource("8_6pmmc")
+items = Array[ExtResource("4_igs2l")]([ExtResource("5_p5qu6"), ExtResource("6_heu0c"), ExtResource("7_t56eh"), null, null, null, null, null])
+metadata/_custom_type_script = "uid://bblvgy8oplpin"
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera", "interaction_ray")]
 script = ExtResource("1_lpyhk")
@@ -33,11 +26,12 @@ camera = NodePath("Head/Camera3D")
 interaction_ray = NodePath("Head/Camera3D/InteractionRay")
 camera_sensitvity = 0.003
 
-[node name="InteractionAndAttack" type="Node3D" parent="." node_paths=PackedStringArray("interaction_ray", "inventory", "player")]
+[node name="BreakAndPlacement" type="Node3D" parent="." node_paths=PackedStringArray("interaction_ray", "player", "player_inventory", "coord_label")]
 script = ExtResource("2_q62hb")
 interaction_ray = NodePath("../Head/Camera3D/InteractionRay")
-inventory = NodePath("../PlayerGUI/Inventory")
 player = NodePath("..")
+player_inventory = NodePath("../PlayerGUI/PlayerInventory")
+coord_label = NodePath("../PlayerGUI/PlayerInventory/Coordinates")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
@@ -53,11 +47,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="InteractionRay" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -4)
 
-[node name="Body" type="Node3D" parent="."]
-script = SubResource("GDScript_1du5w")
-
-[node name="Hands" type="Node3D" parent="Body"]
-
 [node name="PlayerGUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -66,61 +55,120 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-metadata/_edit_use_anchors_ = true
+mouse_force_pass_scroll_events = false
 
-[node name="Inventory" type="TextureRect" parent="PlayerGUI" node_paths=PackedStringArray("selection_box")]
-texture_filter = 1
+[node name="PlayerInventory" type="Control" parent="PlayerGUI" node_paths=PackedStringArray("selection_box", "hotbar", "slots")]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -274.0
-offset_top = -72.0
-offset_bottom = -36.0
 grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(2, 2)
-texture = ExtResource("3_q62hb")
-script = ExtResource("4_yptuu")
-selection_box = NodePath("SelectionBar")
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_kn1iv")
+inventory = SubResource("Resource_0rdsw")
+selection_box = NodePath("hotbar/SelectionBox")
+hotbar = NodePath("hotbar")
+slots = [NodePath("hotbar/Slot1"), NodePath("hotbar/Slot2"), NodePath("hotbar/Slot3"), NodePath("hotbar/Slot4"), NodePath("hotbar/Slot5"), NodePath("hotbar/Slot6"), NodePath("hotbar/Slot7"), NodePath("hotbar/Slot8")]
 
-[node name="SelectionBar" type="TextureRect" parent="PlayerGUI/Inventory"]
+[node name="hotbar" type="TextureRect" parent="PlayerGUI/PlayerInventory"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.00364964
-anchor_top = 0.0277778
-anchor_right = 0.127737
-anchor_bottom = 0.972222
-texture = ExtResource("5_87dig")
-stretch_mode = 2
+anchor_left = 0.380729
+anchor_top = 0.940741
+anchor_right = 0.619271
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_q62hb")
 metadata/_edit_use_anchors_ = true
 
-[node name="dirt" type="TextureRect" parent="PlayerGUI/Inventory"]
-layout_mode = 0
-offset_left = 13.0
-offset_top = 12.5
-offset_right = 23.0
-offset_bottom = 22.5
-texture = ExtResource("6_uai14")
-expand_mode = 1
+[node name="SelectionBox" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.13986
+anchor_bottom = 1.0
+texture = ExtResource("5_87dig")
+metadata/_edit_use_anchors_ = true
 
-[node name="grass" type="TextureRect" parent="PlayerGUI/Inventory"]
+[node name="Slot1" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
 layout_mode = 0
-offset_left = 46.5
-offset_top = 12.5
-offset_right = 56.5
-offset_bottom = 22.5
-texture = ExtResource("7_yj5xo")
-expand_mode = 1
+anchor_left = 0.0174672
+anchor_top = 0.125001
+anchor_right = 0.122271
+anchor_bottom = 0.875004
+metadata/_edit_use_anchors_ = true
 
-[node name="stone" type="TextureRect" parent="PlayerGUI/Inventory"]
-layout_mode = 0
-offset_left = 81.0
-offset_top = 12.5
-offset_right = 91.0
-offset_bottom = 22.5
-texture = ExtResource("8_ev5uv")
-expand_mode = 1
+[node name="Slot2" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.139739
+anchor_top = 0.124997
+anchor_right = 0.244542
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot3" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.262009
+anchor_top = 0.124997
+anchor_right = 0.366813
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot4" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38428
+anchor_top = 0.124997
+anchor_right = 0.489083
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot5" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.50655
+anchor_top = 0.124997
+anchor_right = 0.611354
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot6" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.628821
+anchor_top = 0.124997
+anchor_right = 0.733624
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot7" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.751091
+anchor_top = 0.124997
+anchor_right = 0.855895
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot8" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.873362
+anchor_top = 0.124997
+anchor_right = 0.978165
+anchor_bottom = 0.875
+metadata/_edit_use_anchors_ = true
+
+[node name="Coordinates" type="Label" parent="PlayerGUI/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.979167
+anchor_right = 1.0
+anchor_bottom = 0.0212963
+grow_horizontal = 0
+metadata/_edit_use_anchors_ = true

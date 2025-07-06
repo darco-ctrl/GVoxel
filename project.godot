@@ -18,9 +18,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Data="*res://Data/data.gd"
-TerrainData="*res://Data/terrain_data.gd"
-ItemData="*res://Data/item_data.gd"
+Data="*res://global/data.gd"
+TerrainData="*res://global/terrain_data.gd"
+Function="*res://global/functions.gd"
 
 [display]
 

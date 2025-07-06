@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://doox1kbfhmlmc"]
+
+[ext_resource type="Texture2D" uid="uid://c4kptoyngvanj" path="res://assets/textures/blocks/stone.png" id="1_c3h80"]
+[ext_resource type="Script" uid="uid://do2wxrkfgeh78" path="res://data/resources/items.gd" id="2_nfvns"]
+
+[resource]
+script = ExtResource("2_nfvns")
+name = "stone"
+icon_texture = ExtResource("1_c3h80")
+item_type = "block"
+can_be_mined = true
+can_be_placed = true
+can_be_consumed = false
+stack_size = 16
+block_model = 3
+metadata/_custom_type_script = "uid://do2wxrkfgeh78"

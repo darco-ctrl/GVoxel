@@ -1,6 +1,6 @@
 [gd_resource type="VoxelGeneratorScript" load_steps=2 format=3 uid="uid://cjj42mbfqlaq0"]
 
-[ext_resource type="Script" uid="uid://imttns1x0gpx" path="res://Game/Dimensions/Overworld/overworld_terrain_generator.gd" id="1_x1x7p"]
+[ext_resource type="Script" uid="uid://imttns1x0gpx" path="res://game/dimensions/overworld/overworld_terrain_generator.gd" id="1_x1x7p"]
 
 [resource]
 resource_local_to_scene = true

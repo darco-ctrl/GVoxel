@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=6 format=3 uid="uid://4kcrlkryb2w2"]
+
+[ext_resource type="Script" uid="uid://do2wxrkfgeh78" path="res://data/resources/items.gd" id="1_mpo4q"]
+[ext_resource type="Resource" uid="uid://2848of2b0o3b" path="res://data/items/dirt.tres" id="2_7enrk"]
+[ext_resource type="Resource" uid="uid://dpoohu7eic13p" path="res://data/items/grass.tres" id="3_p64x8"]
+[ext_resource type="Resource" uid="uid://doox1kbfhmlmc" path="res://data/items/stone.tres" id="4_0ptxu"]
+[ext_resource type="Script" uid="uid://bblvgy8oplpin" path="res://data/resources/inventory.gd" id="5_fvmo6"]
+
+[resource]
+script = ExtResource("5_fvmo6")
+items = Array[ExtResource("1_mpo4q")]([ExtResource("2_7enrk"), ExtResource("3_p64x8"), ExtResource("4_0ptxu"), null, null, null, null, null])
+metadata/_custom_type_script = "uid://bblvgy8oplpin"
