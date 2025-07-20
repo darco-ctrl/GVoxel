@@ -19,7 +19,8 @@ script = ExtResource("8_6pmmc")
 items = Array[ExtResource("4_igs2l")]([ExtResource("5_p5qu6"), ExtResource("6_heu0c"), ExtResource("7_t56eh"), null, null, null, null, null])
 metadata/_custom_type_script = "uid://bblvgy8oplpin"
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera", "interaction_ray")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera", "interaction_ray") groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_lpyhk")
 headpivot = NodePath("Head")
 camera = NodePath("Head/Camera3D")
@@ -31,7 +32,7 @@ script = ExtResource("2_q62hb")
 interaction_ray = NodePath("../Head/Camera3D/InteractionRay")
 player = NodePath("..")
 player_inventory = NodePath("../PlayerGUI/PlayerInventory")
-coord_label = NodePath("../PlayerGUI/PlayerInventory/Coordinates")
+coord_label = NodePath("../PlayerGUI/Coordinates")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
@@ -164,7 +165,7 @@ anchor_right = 0.978165
 anchor_bottom = 0.875
 metadata/_edit_use_anchors_ = true
 
-[node name="Coordinates" type="Label" parent="PlayerGUI/PlayerInventory"]
+[node name="Coordinates" type="Label" parent="PlayerGUI"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.979167

@@ -14,6 +14,8 @@ config/name="VoxelGame"
 run/main_scene="uid://c7yw7w32ijc4f"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=1000
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -93,3 +95,8 @@ interact={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(46, 18),"global_position":Vector2(55, 66),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="ground"
+3d_physics/layer_2="player"
