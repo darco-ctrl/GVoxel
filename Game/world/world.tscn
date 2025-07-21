@@ -16,8 +16,9 @@ script = ExtResource("1_1cgcw")
 voxel_terrain = NodePath("Dimensions/terrain")
 dimensions = NodePath("Dimensions")
 
-[node name="Player" parent="." instance=ExtResource("2_fic7y")]
+[node name="Player" parent="." node_paths=PackedStringArray("item_group_node") instance=ExtResource("2_fic7y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 163.049, 0)
+item_group_node = NodePath("../Items")
 
 [node name="Environment" parent="." instance=ExtResource("3_7tn25")]
 
@@ -30,6 +31,4 @@ generator = SubResource("VoxelGeneratorScript_7tn25")
 
 [node name="CommandPanel" parent="UserInterface" instance=ExtResource("5_2iidk")]
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="Items" type="Node3D" parent="."]

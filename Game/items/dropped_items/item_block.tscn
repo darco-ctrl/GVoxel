@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgf20wejmv3mp"]
+
+[ext_resource type="Script" uid="uid://bffdppjj2p84p" path="res://game/items/dropped_items/dropped_item_script.gd" id="1_it4k5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ih2r"]
+radius = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4agpe"]
+uv1_scale = Vector3(2, 2, 2)
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_4lspl"]
+material = SubResource("StandardMaterial3D_4agpe")
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="dropped_block" type="CharacterBody3D" node_paths=PackedStringArray("mesh")]
+collision_layer = 4
+script = ExtResource("1_it4k5")
+mesh = NodePath("MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8ih2r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_4lspl")

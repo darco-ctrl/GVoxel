@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var headpivot: Node3D
 @export var camera: Camera3D
 @export var interaction_ray: RayCast3D
+@export var item_group_node: Node3D
 
 @export_range(0, 1, 0.001) var camera_sensitvity: float = 0.005
 
@@ -13,6 +14,10 @@ extends CharacterBody3D
 var lock_mouse: bool = false
 
 var player_velocity: Vector3 = Vector3.ZERO
+var head_transform: Basis
+
+func _ready() -> void:
+	Data.player = self
 
 func _physics_process(delta: float) -> void:
 	inputs_handler()
@@ -49,7 +54,11 @@ func player_movement(deltatime: float) -> void:
 	if Input.is_action_pressed("move_left"): direction.x -= 1
 	if Input.is_action_pressed("move_right"): direction.x += 1
 	
-	direction = (headpivot.transform.basis * direction).normalized()
+	
+	if is_on_floor():
+		head_transform = headpivot.transform.basis
+	
+	direction = (head_transform * direction).normalized()
 	
 	player_velocity = direction * max_speed
 	

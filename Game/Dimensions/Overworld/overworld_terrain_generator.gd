@@ -9,7 +9,6 @@ func _init():
 	noise.frequency = 0.006 
 	noise.seed = 123456
 
-
 func _generate_block(buffer: VoxelBuffer, origin: Vector3i, lod: int) -> void:
 	var size = buffer.get_size()
 	var channel = VoxelBuffer.CHANNEL_TYPE
@@ -24,7 +23,7 @@ func _generate_block(buffer: VoxelBuffer, origin: Vector3i, lod: int) -> void:
 			for y in size.y:
 				var world_y = origin.y + y
 				var block_type = TerrainData.AIR
-				if world_y > height:
+				if world_y > height or world_y < 0:
 					continue
 				elif world_y > height - 1:
 					block_type = TerrainData.GRASS

@@ -16,29 +16,49 @@ var voxel_tool: VoxelTool
 var current_targeted_block: Vector3i
 var current_target_block_normal: Vector3
 
+var break_progress: int = 0
+
 func _ready() -> void:
 	outline_cube = create_outline_cube()
 	collision_check_body = create_outline_block_collision()
 	
 	if Data.world.voxel_terrain: voxel_terrain = Data.world.voxel_terrain
 	voxel_tool = voxel_terrain.get_voxel_tool()
+	
+	TerrainData.init(player.item_group_node)
 
 func _process(delta: float) -> void:
 	update_collision_check_body()
 	update_outline()
-	block_deystroy()
-	block_placement()
 	
-	coord_label.text = str(player.position)
+	coord_label.text = str(break_progress)
 
+func _physics_process(delta: float) -> void:
+	block_deystroy(delta)
+	block_placement()
 
 ## <--- BLOCK PLACEMENT AND DEYSTORY ---> ##
 
-func block_deystroy():
-	if Input.is_action_just_pressed("attack"):
-		var current_voxel_type = voxel_tool.get_voxel(current_targeted_block)
-		if current_voxel_type != TerrainData.AIR:
-			voxel_tool.set_voxel(current_targeted_block, TerrainData.AIR)
+var selection_position: Vector3i = Vector3i(0, -1, 0)
+
+func block_deystroy(delta: float):
+	if Input.is_action_pressed("attack"):
+		var _current_voxel_type = voxel_tool.get_voxel(current_targeted_block)
+		if _current_voxel_type != TerrainData.AIR:
+			var current_target_position: Vector3i = current_targeted_block
+			
+			if selection_position == current_targeted_block: 
+				break_progress += 180 * delta
+				if break_progress >= 270:
+					voxel_tool.set_voxel(current_targeted_block, TerrainData.AIR)
+					#create_dropped_item(_current_voxel_type, current_targeted_block)
+					TerrainData.drop_item_block(_current_voxel_type, current_targeted_block, false)
+					break_progress = 0
+			else:
+				break_progress = 0
+				selection_position = current_target_position
+	else:
+		break_progress = 0
 
 func block_placement():
 	if Input.is_action_just_pressed("interact") and player_inventory.selected_item != null and can_place_block():
@@ -57,8 +77,6 @@ func block_placement():
 		
 		if block_type == TerrainData.AIR:
 			tool.set_voxel(place_pos, place_block_type)
-
-
 
 
 ## <--- OUTLINE_BOX --> ##
