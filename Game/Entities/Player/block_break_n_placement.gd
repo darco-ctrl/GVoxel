@@ -3,7 +3,7 @@ extends Node3D
 @export var interaction_ray: RayCast3D
 @export var player: CharacterBody3D
 
-@export var player_inventory: PlayerInventory
+@export var player_inventory: Player_Inventory
 
 @export var coord_label: Label
 
@@ -64,18 +64,18 @@ func block_placement():
 	if Input.is_action_just_pressed("interact") and player_inventory.selected_item != null and can_place_block():
 		var item: Item = player_inventory.selected_item
 		
-		if !item.can_be_placed: return
+		if item.item_type != 1: return
 		
-		var place_block_type = item.block_model
+		var place_block_type = item.item_index
 		var tool = voxel_terrain.get_voxel_tool()
 
 		tool.set_channel(VoxelBuffer.CHANNEL_TYPE)
 
 		var place_pos = current_targeted_block + Vector3i(current_target_block_normal)
 
-		var block_type = tool.get_voxel(place_pos)
+		var voxel_type = tool.get_voxel(place_pos)
 		
-		if block_type == TerrainData.AIR:
+		if voxel_type == TerrainData.AIR:
 			tool.set_voxel(place_pos, place_block_type)
 
 

@@ -1,9 +1,12 @@
 extends CharacterBody3D
+class_name Player_Manager
 
 @export var headpivot: Node3D
 @export var camera: Camera3D
 @export var interaction_ray: RayCast3D
 @export var item_group_node: Node3D
+
+@export var player_inventory: Control
 
 @export_range(0, 1, 0.001) var camera_sensitvity: float = 0.005
 
@@ -54,11 +57,7 @@ func player_movement(deltatime: float) -> void:
 	if Input.is_action_pressed("move_left"): direction.x -= 1
 	if Input.is_action_pressed("move_right"): direction.x += 1
 	
-	
-	if is_on_floor():
-		head_transform = headpivot.transform.basis
-	
-	direction = (head_transform * direction).normalized()
+	direction = ( headpivot.transform.basis * direction).normalized()
 	
 	player_velocity = direction * max_speed
 	

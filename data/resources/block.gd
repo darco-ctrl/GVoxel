@@ -6,3 +6,5 @@ class_name Block_Data
 @export var need_silk_touch_to_mine: bool = false
 @export var mined_item: String
 @export var silk_touch_mined_item: String
+@export var item_type: Item
+@export var silk_touch_item_type: Item

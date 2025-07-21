@@ -20,13 +20,15 @@ const DROPPED_ITEMS_SCENE: Array[Block_Data] = [
 func init(node: Node3D)-> void:
 	items_parent = node
 
-func drop_item_block(block_type: int, pos: Vector3, does_player_has_silk_touch)-> void:
+func drop_item_block(block_type: int, pos: Vector3, does_player_has_silk_touch: bool)-> void:
 	if block_type < TerrainData.DROPPED_ITEMS_SCENE.size() and block_type >= 0:
 		
 		var block_data: Block_Data = DROPPED_ITEMS_SCENE[block_type]
 		if block_data == null: return
 		
 		var new_dropped_item: CharacterBody3D = item_block_dropped.instantiate() as Dropped_Block
+		new_dropped_item.block_data = block_data
+		new_dropped_item.dropped_with_silk_touch = does_player_has_silk_touch
 		
 		var item_texture: String = block_texture_folder
 		if does_player_has_silk_touch and block_data.need_silk_touch_to_mine:

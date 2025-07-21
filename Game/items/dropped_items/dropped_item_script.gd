@@ -2,6 +2,8 @@ extends CharacterBody3D
 class_name Dropped_Block
 
 @export var mesh: MeshInstance3D
+var block_data: Block_Data
+var dropped_with_silk_touch: bool = false
 
 var frequency: float = 1
 var amplitude: float = 0.05
@@ -24,8 +26,6 @@ func _process(delta: float) -> void:
 		mesh.position.y = _animated_block(time)
 		mesh.rotation.y += 0.005
 		
-		print("running")
-		
 	if global_position.y < 0:
 		queue_free()
 	
@@ -38,3 +38,23 @@ func _animated_block(t: float)-> float:
 	y = sin(t * frequency) * amplitude
 	
 	return y
+
+
+func _on_timer_timeout() -> void:
+	queue_free()
+
+
+func _on_player_detecting_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		var plr_invo = body.player_inventory as Player_Inventory
+		var item: Item
+		if dropped_with_silk_touch:
+			item = block_data.silk_touch_item_type
+		else:
+			item = block_data.item_type
+		
+		var did_item_added = plr_invo.add_item(item)
+		
+		if did_item_added:
+			queue_free()
+		

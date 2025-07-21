@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://2848of2b0o3b"]
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://2848of2b0o3b"]
 
 [ext_resource type="Texture2D" uid="uid://nytplf6xps4d" path="res://assets/textures/blocks/dirt.png" id="1_tesfm"]
 [ext_resource type="Script" uid="uid://do2wxrkfgeh78" path="res://data/resources/items.gd" id="2_wc6oa"]
@@ -7,10 +7,7 @@
 script = ExtResource("2_wc6oa")
 name = "dirt"
 icon_texture = ExtResource("1_tesfm")
-item_type = "block"
-can_be_mined = true
-can_be_placed = true
-can_be_consumed = false
+item_type = 1
 stack_size = 16
-block_model = 2
+item_index = 2
 metadata/_custom_type_script = "uid://do2wxrkfgeh78"

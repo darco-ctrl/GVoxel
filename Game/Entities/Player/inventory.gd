@@ -1,11 +1,12 @@
 extends Control
-class_name PlayerInventory
+class_name Player_Inventory
 
 @export var inventory: Inventory
 @export var selection_box: TextureRect
 @export var hotbar: TextureRect
 
 @export var slots: Array[TextureRect]
+@export var inventory_max_size: int = 8
 
 var current_selected_box: int = 0
 var selected_item: Item
@@ -33,9 +34,24 @@ func update_hotbar() -> void:
 	
 	for i in slots.size():
 		var slot = slots[i]
-		var item = inventory.items[i]
-		if item == null: continue
+		if i < inventory.items.size():
+			var item = inventory.items[i]
+			if item == null: continue
+			slot.texture = item.icon_texture
+		else:
+			continue
 		
-		slot.texture = item.icon_texture
 	
 	selected_item = inventory.items[current_selected_box]
+
+
+func add_item(item: Item) -> bool:
+	if inventory.items.size() <= inventory_max_size:
+		var first_null_slot: int = -1
+		for i in range(inventory.items.size()):
+			var slot = inventory.items[i]
+			if first_null_slot == -1 and slot == null:
+				first_null_slot = i
+				inventory.items[first_null_slot] = item
+				return true
+	return false
