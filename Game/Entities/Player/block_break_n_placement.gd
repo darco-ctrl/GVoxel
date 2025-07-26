@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	update_collision_check_body()
 	update_outline()
 	
-	coord_label.text = str(break_progress)
+	coord_label.text = str(player.position)
 
 func _physics_process(delta: float) -> void:
 	block_deystroy(delta)

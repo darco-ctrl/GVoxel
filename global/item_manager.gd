@@ -20,7 +20,7 @@ var item_block_dropped: PackedScene = preload("res://game/items/dropped_items/it
 
 var blocks_data: Array[Block_Data] = [
 	null, 
-	Block_Data.new(BLOCK_TYPE.GRASS), 
+	Block_Data.new(BLOCK_TYPE.GRASS),  
 	Block_Data.new(BLOCK_TYPE.DIRT),
 	Block_Data.new(BLOCK_TYPE.STONE),
 	Block_Data.new(BLOCK_TYPE.LEAF),

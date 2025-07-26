@@ -49,12 +49,13 @@ albedo_color = Color(0.282976, 0.121361, 2.40654e-08, 1)
 material_override_0 = SubResource("StandardMaterial3D_4a6im")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_312ne"]
+albedo_color = Color(0.347817, 0.347817, 0.347817, 1)
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_4a6im"]
 material_override_0 = SubResource("StandardMaterial3D_312ne")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu35p"]
-albedo_color = Color(0.347817, 0.347817, 0.347817, 1)
+albedo_color = Color(0.2484, 0.2484, 0.2484, 1)
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_1yfoy"]
 material_override_0 = SubResource("StandardMaterial3D_wu35p")

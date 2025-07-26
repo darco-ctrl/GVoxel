@@ -9,5 +9,5 @@ library = ExtResource("2_yh6uv")
 [node name="VoxelTerrain" type="VoxelTerrain"]
 generator = ExtResource("1_lwaw4")
 mesher = SubResource("VoxelMesherBlocky_s0xdd")
-bounds = AABB(-10000, -16, -10000, 20000, 320, 20000)
+bounds = AABB(-16, -16, -16, 32, 32, 32)
 run_stream_in_editor = false
