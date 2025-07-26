@@ -55,6 +55,11 @@ func _on_player_detecting_body_entered(body: Node3D) -> void:
 		
 		var did_item_added = plr_invo.add_item(item)
 		
+		
+		
+		
+		
+		
 		if did_item_added:
 			queue_free()
 		

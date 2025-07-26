@@ -57,7 +57,7 @@ func player_movement(deltatime: float) -> void:
 	if Input.is_action_pressed("move_left"): direction.x -= 1
 	if Input.is_action_pressed("move_right"): direction.x += 1
 	
-	direction = ( headpivot.transform.basis * direction).normalized()
+	direction = (headpivot.transform.basis * direction).normalized()
 	
 	player_velocity = direction * max_speed
 	

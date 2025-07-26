@@ -1,20 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcvktgtmx3xpg"]
+[gd_scene load_steps=5 format=3 uid="uid://dcvktgtmx3xpg"]
 
 [ext_resource type="Script" uid="uid://e4cnw5rr2org" path="res://game/entities/player/player.gd" id="1_lpyhk"]
 [ext_resource type="Script" uid="uid://cee717nos5dcq" path="res://game/entities/player/block_break_n_placement.gd" id="2_q62hb"]
-[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://assets/userinterface/hotbar/hotbar.png" id="3_q62hb"]
-[ext_resource type="Script" uid="uid://do2wxrkfgeh78" path="res://data/resources/items.gd" id="4_igs2l"]
-[ext_resource type="Script" uid="uid://bgmge26qaskbd" path="res://game/entities/player/inventory.gd" id="4_kn1iv"]
-[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://assets/userinterface/hotbar/hotbarselection.png" id="5_87dig"]
-[ext_resource type="Script" uid="uid://bblvgy8oplpin" path="res://data/resources/inventory.gd" id="8_6pmmc"]
+[ext_resource type="PackedScene" uid="uid://daghhwab3emrw" path="res://game/systems/inventory/player_inventory.tscn" id="3_x4rrl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_25h4n"]
 size = Vector3(0.5, 1.7, 0.5)
-
-[sub_resource type="Resource" id="Resource_0rdsw"]
-script = ExtResource("8_6pmmc")
-items = Array[ExtResource("4_igs2l")]([null, null, null, null, null, null, null, null])
-metadata/_custom_type_script = "uid://bblvgy8oplpin"
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("headpivot", "camera", "interaction_ray", "player_inventory") groups=["player"]]
 collision_layer = 2
@@ -22,14 +13,14 @@ script = ExtResource("1_lpyhk")
 headpivot = NodePath("Head")
 camera = NodePath("Head/Camera3D")
 interaction_ray = NodePath("Head/Camera3D/InteractionRay")
-player_inventory = NodePath("PlayerGUI/PlayerInventory")
+player_inventory = NodePath("PlayerGUI/Inventory")
 camera_sensitvity = 0.003
 
 [node name="BreakAndPlacement" type="Node3D" parent="." node_paths=PackedStringArray("interaction_ray", "player", "player_inventory", "coord_label")]
 script = ExtResource("2_q62hb")
 interaction_ray = NodePath("../Head/Camera3D/InteractionRay")
 player = NodePath("..")
-player_inventory = NodePath("../PlayerGUI/PlayerInventory")
+player_inventory = NodePath("../PlayerGUI/Inventory")
 coord_label = NodePath("../PlayerGUI/Coordinates")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -56,112 +47,8 @@ grow_vertical = 2
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
 
-[node name="PlayerInventory" type="Control" parent="PlayerGUI" node_paths=PackedStringArray("selection_box", "hotbar", "slots")]
+[node name="Inventory" parent="PlayerGUI" instance=ExtResource("3_x4rrl")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("4_kn1iv")
-inventory = SubResource("Resource_0rdsw")
-selection_box = NodePath("hotbar/SelectionBox")
-hotbar = NodePath("hotbar")
-slots = [NodePath("hotbar/Slot1"), NodePath("hotbar/Slot2"), NodePath("hotbar/Slot3"), NodePath("hotbar/Slot4"), NodePath("hotbar/Slot5"), NodePath("hotbar/Slot6"), NodePath("hotbar/Slot7"), NodePath("hotbar/Slot8")]
-
-[node name="hotbar" type="TextureRect" parent="PlayerGUI/PlayerInventory"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.380729
-anchor_top = 0.940741
-anchor_right = 0.619271
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("3_q62hb")
-metadata/_edit_use_anchors_ = true
-
-[node name="SelectionBox" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.13986
-anchor_bottom = 1.0
-texture = ExtResource("5_87dig")
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot1" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 0
-anchor_left = 0.0174672
-anchor_top = 0.125001
-anchor_right = 0.122271
-anchor_bottom = 0.875004
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot2" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.139739
-anchor_top = 0.124997
-anchor_right = 0.244542
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot3" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.262009
-anchor_top = 0.124997
-anchor_right = 0.366813
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot4" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.38428
-anchor_top = 0.124997
-anchor_right = 0.489083
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot5" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.50655
-anchor_top = 0.124997
-anchor_right = 0.611354
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot6" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.628821
-anchor_top = 0.124997
-anchor_right = 0.733624
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot7" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.751091
-anchor_top = 0.124997
-anchor_right = 0.855895
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
-
-[node name="Slot8" type="TextureRect" parent="PlayerGUI/PlayerInventory/hotbar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.873362
-anchor_top = 0.124997
-anchor_right = 0.978165
-anchor_bottom = 0.875
-metadata/_edit_use_anchors_ = true
 
 [node name="Coordinates" type="Label" parent="PlayerGUI"]
 layout_mode = 1

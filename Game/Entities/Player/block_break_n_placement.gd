@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 	block_deystroy(delta)
 	block_placement()
 
+
 ## <--- BLOCK PLACEMENT AND DEYSTORY ---> ##
 
 var selection_position: Vector3i = Vector3i(0, -1, 0)
@@ -61,8 +62,12 @@ func block_deystroy(delta: float):
 		break_progress = 0
 
 func block_placement():
-	if Input.is_action_just_pressed("interact") and player_inventory.selected_item != null and can_place_block():
-		var item: Item = player_inventory.selected_item
+	if Input.is_action_just_pressed("interact") and can_place_block():
+			
+		if player_inventory.selected_slot == null: return
+		
+		var current_slot: Slot = player_inventory.selected_slot
+		var item: Item = current_slot.item
 		
 		if item.item_type != 1: return
 		
@@ -77,6 +82,7 @@ func block_placement():
 		
 		if voxel_type == TerrainData.AIR:
 			tool.set_voxel(place_pos, place_block_type)
+			current_slot.item_count -= 1
 
 
 ## <--- OUTLINE_BOX --> ##

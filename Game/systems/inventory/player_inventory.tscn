@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://daghhwab3emrw"]
+
+[ext_resource type="Script" uid="uid://bgmge26qaskbd" path="res://game/systems/inventory/inventory.gd" id="1_pry41"]
+[ext_resource type="Script" uid="uid://dbi4jhrhe8sl4" path="res://data/resources/slot.gd" id="2_jfa2q"]
+[ext_resource type="Script" uid="uid://bblvgy8oplpin" path="res://data/resources/inventory.gd" id="3_06kkr"]
+[ext_resource type="PackedScene" uid="uid://c1s1a4k010jxp" path="res://game/systems/inventory/slot.tscn" id="3_oww36"]
+[ext_resource type="Texture2D" uid="uid://r4foaqisaylm" path="res://assets/userinterface/hotbar/hotbar.png" id="4_41e8k"]
+[ext_resource type="Texture2D" uid="uid://d2s4b0mhq34aa" path="res://assets/userinterface/hotbar/hotbarselection.png" id="6_06kkr"]
+[ext_resource type="Script" uid="uid://dseuakdfiqdkm" path="res://game/systems/inventory/selection_box.gd" id="7_gv6vp"]
+
+[sub_resource type="Resource" id="Resource_gv6vp"]
+script = ExtResource("3_06kkr")
+slots = Array[ExtResource("2_jfa2q")]([null, null, null, null, null, null, null, null])
+metadata/_custom_type_script = "uid://bblvgy8oplpin"
+
+[node name="PlayerInventory" type="Control" node_paths=PackedStringArray("slots", "selection_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_pry41")
+inventory = SubResource("Resource_gv6vp")
+slots = [NodePath("NinePatchRect/GridContainer/0"), NodePath("NinePatchRect/GridContainer/1"), NodePath("NinePatchRect/GridContainer/2"), NodePath("NinePatchRect/GridContainer/3"), NodePath("NinePatchRect/GridContainer/4"), NodePath("NinePatchRect/GridContainer/5"), NodePath("NinePatchRect/GridContainer/6"), NodePath("NinePatchRect/GridContainer/7")]
+selection_box = NodePath("NinePatchRect/GridContainer/0/SelectionBox")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -313.0
+offset_top = -80.0
+offset_right = 271.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_41e8k")
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -5.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 8
+
+[node name="0" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="SelectionBox" type="TextureRect" parent="NinePatchRect/GridContainer/0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_06kkr")
+script = ExtResource("7_gv6vp")
+
+[node name="1" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="2" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="3" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="4" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="5" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="6" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2
+
+[node name="7" parent="NinePatchRect/GridContainer" instance=ExtResource("3_oww36")]
+layout_mode = 2

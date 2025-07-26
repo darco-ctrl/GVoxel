@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1s1a4k010jxp"]
+
+[ext_resource type="Script" uid="uid://lvbbipvgahxt" path="res://game/systems/inventory/slot_node.gd" id="1_egg7e"]
+[ext_resource type="Texture2D" uid="uid://cjc76q0cuk5u6" path="res://assets/userinterface/hotbar/slot.png" id="1_w71uf"]
+
+[node name="slot" type="Panel" node_paths=PackedStringArray("item_texture_node", "item_count_display")]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(68, 68)
+offset_right = 34.0
+offset_bottom = 34.0
+script = ExtResource("1_egg7e")
+item_texture_node = NodePath("slot_texture/item_texture")
+item_count_display = NodePath("slot_texture/item_texture/ItemCountDisplay")
+
+[node name="slot_texture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 68.0
+offset_bottom = 68.0
+texture = ExtResource("1_w71uf")
+
+[node name="item_texture" type="TextureRect" parent="slot_texture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemCountDisplay" type="Label" parent="slot_texture/item_texture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
