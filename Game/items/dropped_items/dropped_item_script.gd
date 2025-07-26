@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name Dropped_Block
 
 @export var mesh: MeshInstance3D
-var block_data: Block_Data
+var item: Item
 var dropped_with_silk_touch: bool = false
 
 var frequency: float = 1
@@ -47,18 +47,8 @@ func _on_timer_timeout() -> void:
 func _on_player_detecting_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		var plr_invo = body.player_inventory as Player_Inventory
-		var item: Item
-		if dropped_with_silk_touch:
-			item = block_data.silk_touch_item_type
-		else:
-			item = block_data.item_type
 		
 		var did_item_added = plr_invo.add_item(item)
-		
-		
-		
-		
-		
 		
 		if did_item_added:
 			queue_free()

@@ -21,7 +21,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Data="*res://global/data.gd"
-TerrainData="*res://global/terrain_data.gd"
+ItemManger="*res://global/item_manager.gd"
 Function="*res://global/functions.gd"
 
 [display]

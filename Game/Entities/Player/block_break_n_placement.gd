@@ -25,7 +25,7 @@ func _ready() -> void:
 	if Data.world.voxel_terrain: voxel_terrain = Data.world.voxel_terrain
 	voxel_tool = voxel_terrain.get_voxel_tool()
 	
-	TerrainData.init(player.item_group_node)
+	ItemManger.init(player.item_group_node)
 
 func _process(delta: float) -> void:
 	update_collision_check_body()
@@ -45,15 +45,16 @@ var selection_position: Vector3i = Vector3i(0, -1, 0)
 func block_deystroy(delta: float):
 	if Input.is_action_pressed("attack"):
 		var _current_voxel_type = voxel_tool.get_voxel(current_targeted_block)
-		if _current_voxel_type != TerrainData.AIR:
+		var _current_block_data: Block_Data = ItemManger.blocks_data[_current_voxel_type]
+		if _current_voxel_type != ItemManger.BLOCK_TYPE.AIR and _current_block_data.can_be_mined:
 			var current_target_position: Vector3i = current_targeted_block
 			
 			if selection_position == current_targeted_block: 
 				break_progress += 180 * delta
 				if break_progress >= 270:
-					voxel_tool.set_voxel(current_targeted_block, TerrainData.AIR)
+					voxel_tool.set_voxel(current_targeted_block, ItemManger.BLOCK_TYPE.AIR)
 					#create_dropped_item(_current_voxel_type, current_targeted_block)
-					TerrainData.drop_item_block(_current_voxel_type, current_targeted_block, false)
+					ItemManger.drop_item_block(_current_voxel_type, current_targeted_block, false)
 					break_progress = 0
 			else:
 				break_progress = 0
@@ -80,7 +81,7 @@ func block_placement():
 
 		var voxel_type = tool.get_voxel(place_pos)
 		
-		if voxel_type == TerrainData.AIR:
+		if voxel_type == ItemManger.BLOCK_TYPE.AIR:
 			tool.set_voxel(place_pos, place_block_type)
 			current_slot.item_count -= 1
 

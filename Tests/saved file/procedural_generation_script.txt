@@ -22,20 +22,60 @@ func _generate_block(buffer: VoxelBuffer, origin: Vector3i, lod: int) -> void:
 			
 			for y in size.y:
 				var world_y = origin.y + y
-				var block_type = ItemManger.BLOCK_TYPE.AIR
+				var block_type = TerrainData.AIR
 				if world_y > height or world_y < 0:
 					continue
 				elif world_y > height - 1:
-					block_type = ItemManger.BLOCK_TYPE.GRASS
+					block_type = TerrainData.GRASS
 				elif world_y > height - 5: 
-					block_type = ItemManger.BLOCK_TYPE.DIRT
+					block_type = TerrainData.DIRT
 				else:
-					block_type = ItemManger.BLOCK_TYPE.STONE
+					block_type = TerrainData.STONE
 				
 				buffer.set_voxel(block_type, x, y, z, channel)
 				
 				if world_y == height and world_y < 70 and world_y > 60 and randi() % 50 == 0:
 					spawn_tree(buffer, Vector3i(x, y + 1, z))
+
+func spawn_tree(buffer: VoxelBuffer, pos: Vector3i):
+	var wood_type = 5
+	var leaf_type = 4
+	
+	for i in 3:
+		var trunk_pos = pos + Vector3i(0, i, 0)
+		if is_in_bounds(buffer, trunk_pos):
+			buffer.set_voxel(wood_type, trunk_pos.x, trunk_pos.y, trunk_pos.z, VoxelBuffer.CHANNEL_TYPE)
+
+	for dx in [-1, 0 , 1]:
+		for dz in [-1, 0, 1]:
+				if dx != 0 or dz != 0:
+					var leaf_pos = pos + Vector3i(dx, 3, dz)
+					if is_in_bounds(buffer, leaf_pos):
+						buffer.set_voxel(leaf_type, leaf_pos.x, leaf_pos.y, leaf_pos.z, VoxelBuffer.CHANNEL_TYPE)
+
+	
+	
+func is_in_bounds(buffer: VoxelBuffer, pos: Vector3i) -> bool:
+	var size = buffer.get_size()
+	return pos.x >= 0 and pos.x < size.x and \
+		   pos.y >= 0 and pos.y < size.y and \
+		   pos.z >= 0 and pos.z < size.z
+
+
+
+#######################
+
+extends VoxelGeneratorScript
+
+var from_position: Vector3 = Vector3(-10, 0, -10)
+var to_position: Vector3 = Vector3(10, 0 , 10)
+
+func _generate_block(buffer: VoxelBuffer, origin: Vector3i, lod: int) -> void:
+	for z in range(from_position.z, to_position.z):
+		for x in range(from_position.x, to_position.x):
+			for y in range(from_position.y, to_position.y):
+				pass
+				
 
 func spawn_tree(buffer: VoxelBuffer, pos: Vector3i):
 	var wood_type = 5
