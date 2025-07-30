@@ -29,7 +29,7 @@ var blocks_data: Array[Block_Data] = [
 	Block_Data.new(BLOCK_TYPE.CHECKERED_TWO, true, false)
 ]
 
-var dropped_item_paths: Array[String] = [
+var ITEM_FILE_NAMES: Array[String] = [
 	"",
 	"grass.tres",
 	"dirt.tres",
@@ -43,13 +43,25 @@ var dropped_item_paths: Array[String] = [
 func init(node: Node3D)-> void:
 	items_parent = node
 
+func load_item(item_name: String)-> Item:
+	
+	var item: Item
+	var item_file_name = item_name + ".tres"
+	
+	if ITEM_FILE_NAMES.has(item_file_name):
+		item = load(ITEM_FOLDER + item_file_name)
+	
+		return item
+		
+	return null
+
 func drop_item_block(block_type: int, pos: Vector3, does_player_has_silk_touch: bool)-> void:
 	if block_type < blocks_data.size() and block_type >= 0:
 		
 		var current_block_data: Block_Data = blocks_data[block_type]
 		if current_block_data == null: return
 		
-		var item_name: String = dropped_item_paths[block_type]
+		var item_name: String = ITEM_FILE_NAMES[block_type]
 		
 		if item_name == "": return
 		

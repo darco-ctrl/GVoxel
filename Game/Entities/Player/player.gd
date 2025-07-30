@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	player_movement(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and lock_mouse:
+	if not GameManager.is_ui_open and event is InputEventMouseMotion and lock_mouse:
 		headpivot.rotate_y(-event.relative.x * camera_sensitvity)
 		camera.rotate_x(-event.relative.y * camera_sensitvity)
 
@@ -49,13 +49,14 @@ func player_movement(deltatime: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * deltatime
 	
-	if Input.is_action_pressed("jump") && is_on_floor():
-		velocity.y = jump_velocity
-	
-	if Input.is_action_pressed("move_forward"): direction.z -= 1
-	if Input.is_action_pressed("move_backward"): direction.z += 1
-	if Input.is_action_pressed("move_left"): direction.x -= 1
-	if Input.is_action_pressed("move_right"): direction.x += 1
+	if not GameManager.is_ui_open:
+		if Input.is_action_pressed("jump") && is_on_floor():
+			velocity.y = jump_velocity
+		
+		if Input.is_action_pressed("move_forward"): direction.z -= 1
+		if Input.is_action_pressed("move_backward"): direction.z += 1
+		if Input.is_action_pressed("move_left"): direction.x -= 1
+		if Input.is_action_pressed("move_right"): direction.x += 1
 	
 	direction = (headpivot.transform.basis * direction).normalized()
 	

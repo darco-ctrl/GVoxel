@@ -52,12 +52,15 @@ layout_mode = 1
 
 [node name="Coordinates" type="Label" parent="PlayerGUI"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.979167
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.0212963
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -23.0
 grow_horizontal = 0
-metadata/_edit_use_anchors_ = true
+grow_vertical = 0
 
 [node name="Timers" type="Node" parent="."]
 

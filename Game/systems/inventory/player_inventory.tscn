@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://daghhwab3emrw"]
 
-[ext_resource type="Script" uid="uid://bgmge26qaskbd" path="res://game/systems/inventory/inventory.gd" id="1_pry41"]
+[ext_resource type="Script" uid="uid://bgmge26qaskbd" path="res://game/systems/inventory/player_inventory.gd" id="1_pry41"]
 [ext_resource type="Script" uid="uid://dbi4jhrhe8sl4" path="res://data/resources/slot.gd" id="2_jfa2q"]
 [ext_resource type="Script" uid="uid://bblvgy8oplpin" path="res://data/resources/inventory.gd" id="3_06kkr"]
 [ext_resource type="PackedScene" uid="uid://c1s1a4k010jxp" path="res://game/systems/inventory/slot.tscn" id="3_oww36"]

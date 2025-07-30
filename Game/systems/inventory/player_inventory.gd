@@ -8,7 +8,9 @@ class_name Player_Inventory
 
 var current_selected_slot_index: int = 0
 var selected_slot: Slot ## Currently selected inventory slot
- 
+
+func _ready() -> void:
+	CommandManager.set_player_inventory(self)
 
 func _process(delta: float) -> void:
 	update_hotbar()
@@ -62,7 +64,7 @@ func update_inventory_slots() -> void:
 		
 		selected_slot = inventory.slots[current_selected_slot_index]
 
-func add_item(item: Item) -> bool:
+func add_item(item: Item, item_count:int = 1) -> bool:
 	var first_null_slot: int = -1 
 	for slot in range(inventory.slots.size()):
 		var current_slot: Slot = inventory.slots[slot]
@@ -71,10 +73,11 @@ func add_item(item: Item) -> bool:
 		if first_null_slot == -1 and current_slot == null:
 			first_null_slot = slot
 		
+		# creating new slot
 		if current_slot != null:
 			var current_item = current_slot.item
 			if item == current_item:
-				current_slot.item_count += 1
+				current_slot.item_count += item_count
 				
 				display_slot.slot_data = current_slot
 				
@@ -87,7 +90,7 @@ func add_item(item: Item) -> bool:
 		if !current_slot:
 			var new_slot: Slot = Slot.new()
 			new_slot.item = item
-			new_slot.item_count += 1
+			new_slot.item_count += item_count
 			inventory.slots[first_null_slot] = new_slot
 			
 			display_slot.slot_data = new_slot
@@ -95,7 +98,9 @@ func add_item(item: Item) -> bool:
 			return true
 	
 	return false
-		
+
+
+#func clear_inventory()
 
 #func add_item(item: Item) -> bool:
 	#if inventory.items.size() <= inventory_max_size:
